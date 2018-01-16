@@ -6,7 +6,11 @@ const yelp = require('yelp-fusion');
 const apiKey = '4OXAW5GC7aWnQiy_pm6K_AwGNP2dTis_CDk48CiKd60uQAp3oiNOU_J_rKWCevn3RGeDS9fsbhX0UHeCpoJbtSc9v9LytN9EuZBejaG0plho5CYExoW-HjgD_dAyWnYx';
 const client = yelp.client(apiKey);
 var mongo = require('mongodb').MongoClient;
-var url = 'mongodb://glandon22:taylord22@ds163796.mlab.com:63796/nightlife'
+var url = 'mongodb://glandon22:taylord22@ds163796.mlab.com:63796/nightlife';
+var morgan = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('express-session');
 var user = {};
 var tempQuery = '';
 var redirect = false;
@@ -45,10 +49,10 @@ passport.deserializeUser(function(obj, cb) {
   cb(null, obj);
 });
 
-app.use(require('morgan')('combined'));
-app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(morgan('combined'));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 /*
 app.use(passport.initialize());
 app.use(passport.session());

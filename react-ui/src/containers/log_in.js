@@ -13,7 +13,7 @@ const SignIn = (props) => {
         return (
             <button type="button" 
             className="btn btn-default navbar-btn">
-                <a href="http://localhost:5000/login/twitter">Log In</a>
+                <a href="/api">Log In</a>
             </button>
         );
     }

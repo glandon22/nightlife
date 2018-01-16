@@ -30,7 +30,7 @@ const BarListItem = ({bar}) => {
                 </div>
                 <div className="row h-25">
                     <div className="col-md-12">
-                        <a href={"http://localhost:3001/attendingBar/" + encodeURIComponent(bar.yelpUrl)}>
+                        <a href={"http://localhost:5000/attendingBar/" + encodeURIComponent(bar.yelpUrl)}>
                             {bar.votes} attending
                         </a>
                     </div>

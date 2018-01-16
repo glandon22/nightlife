@@ -26,7 +26,7 @@ passport.use(new Strategy({
   //process.env.CONSUMER_KEY,
   consumerSecret: 'OFGbfZepZmvevXYK8qVurpIl1OAH9OnSFPmQKVIgYR5Bm1PJAW',
   //process.env.CONSUMER_SECRET,
-  callbackURL: 'http://localhost:3001/login/twitter/return'
+  callbackURL: 'https://limitless-falls-29953.herokuapp.com/login/twitter/return'
 },
 function(token, tokenSecret, profile, cb) {
   // In this example, the user's Twitter profile is supplied as the user

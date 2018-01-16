@@ -58,7 +58,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-/* GET home page. */
+app.get('/login/twitter',
+  passport.authenticate('twitter'));
+
+app.get('/login/twitter/return', 
+  passport.authenticate('twitter', { failureRedirect: '/error' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+/* query yelp with term sent from front end, then send response back*/
 app.get('/api/:term', function(req, res, next) {
   var term = req.params.term;
   tempQuery = term;

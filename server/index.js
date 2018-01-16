@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
-/*
+
 passport.use(new Strategy({
   consumerKey: 'wfVxmvSCWBv4l5p01ln1zWW3T',
   //process.env.CONSUMER_KEY,
@@ -36,7 +36,7 @@ function(token, tokenSecret, profile, cb) {
   user.handle = profile.username;
   return cb(null, profile);
 }));
-
+/*
 passport.serializeUser(function(user, cb) {
   cb(null, user);
 });

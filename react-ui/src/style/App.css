@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
+  animation: App-logo-spin infinite 1s linear;
   height: 80px;
 }
 
@@ -14,15 +14,19 @@
   color: white;
 }
 
-.App-intro {
-  font-size: large;
+.App-title {
+  font-size: 1.5em;
 }
 
-.App a {
-  color: #f60;
+.App-intro {
+  font-size: large;
 }
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.navbar-collapse.collapse.in {
+  display: block!important;
 }

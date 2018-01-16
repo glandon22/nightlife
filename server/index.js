@@ -36,7 +36,7 @@ function(token, tokenSecret, profile, cb) {
   user.handle = profile.username;
   return cb(null, profile);
 }));
-/*
+
 passport.serializeUser(function(user, cb) {
   cb(null, user);
 });
@@ -44,7 +44,7 @@ passport.serializeUser(function(user, cb) {
 passport.deserializeUser(function(obj, cb) {
   cb(null, obj);
 });
-
+/*
 app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));

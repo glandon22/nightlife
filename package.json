@@ -14,7 +14,17 @@
     "react-ui/node_modules"
   ],
   "dependencies": {
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "axios": "^0.17.1",
+    "cookie-parser": "^1.4.3",
+    "express-session": "^1.15.6",
+    "lodash": "^4.17.4",
+    "mongodb": "^2.2.34",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-twitter": "^1.0.4",
+    "react-scripts": "1.0.17",
+    "yelp-fusion": "^2.0.3"
   },
   "repository": {
     "type": "git",

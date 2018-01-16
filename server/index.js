@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
-
+/*
 passport.use(new Strategy({
   consumerKey: 'wfVxmvSCWBv4l5p01ln1zWW3T',
   //process.env.CONSUMER_KEY,
@@ -44,7 +44,7 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveU
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+*/
 
 // Answer API requests.
 app.get('/api', function (req, res) {

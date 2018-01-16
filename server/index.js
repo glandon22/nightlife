@@ -67,6 +67,24 @@ app.get('/login/twitter/return',
     res.redirect('/');
   });
 
+app.get('/logout', function(req,res) {
+  user = {};
+  req.session.destroy()
+  req.logout()
+  res.redirect('/');
+});  
+
+app.get('/verify', function(req,res) {
+  if (redirect) {
+    redirect = false;
+    res.send([user, tempQuery]);
+  }
+
+  else {
+    res.send(user);
+  }
+});  
+
 /* query yelp with term sent from front end, then send response back*/
 app.get('/api/:term', function(req, res, next) {
   var term = req.params.term;
@@ -103,14 +121,86 @@ app.get('/api/:term', function(req, res, next) {
             }
           }
           res.send(responseObject);
-        });
-
-             
-      });
-      
+        });       
+      });   
   }).catch(e => {
       console.log(e);
   });
+});
+
+app.get('/attendingBar/:bar', function(req,res) {
+  if (user.status) {
+    mongo.connect(url, function(err,db) {
+      if (err) {
+        console.log(err);
+      }
+
+      else {
+        var collection = db.collection('test');
+        collection.find({name: req.params.bar}).toArray(function(err,data) {
+          if (err) {
+            console.log(err);
+          }
+
+          else {
+            //found bar
+            if (data.length != 0) {
+              //update the entry w bar and vote count bc it already exists
+              //there is only one vote for the bar, and that vote came from current user, so when click again they are un-registering
+              if (data[0].user.length == 1 && data[0].user[0] == user.handle) {
+                collection.remove({name: req.params.bar});
+              }
+              //add additional else if statement that covers cases where there is already more than one vote for the bar, but one may or may not have come from current user 
+              else if (data[0].user.indexOf(user.handle) !== -1) {
+                //remove instnace of the users handle so that they can vote again for this bar if they wish
+                var index = data[0].user.indexOf(user.handle);
+                data[0].user.splice(index, 1);
+
+                collection.update({name: req.params.bar},
+                  {
+                    $inc: {votes: -1},
+                    $set: {createdAt: new Date(), user: data[0].user}
+                  });
+              }
+              
+
+              //more than one vote for the bar already
+              else {
+                //also need to add the users handle to the voted array
+                data[0].user.push(user.handle);
+                collection.update({name: req.params.bar},
+                {
+                  $inc: {votes: 1},
+                  $set: {createdAt: new Date(), user: data[0].user}
+                });
+              }
+            }
+            //create new entry
+            else {
+              collection.createIndex({"createdAt": 1}, {expireAfterSeconds: 86400});
+              collection.insert({
+                name: req.params.bar,
+                votes: 1,
+                user: [user.handle],
+                createdAt: new Date()
+              }, function(err, data) {
+                console.log(data);
+              });
+            }
+          }
+        });
+
+        
+      }
+    });
+    res.redirect('/');
+  }
+  //user needs to login before they can go to a bar
+  else {
+    redirect = true;
+    res.redirect('/login/twitter');
+  }
+  
 });
 
 // Answer API requests.
